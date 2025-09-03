@@ -7,10 +7,23 @@ public class ProductRepo {
     private String name;
     private ArrayList<Product> products;
 
-
+    //Konstruktor
     public ProductRepo(String name) {
         this.name = name;
         products = new ArrayList<>();
+    }
+
+    //Methoden
+    public void addProduct(Product product) {
+        products.add(product);
+    }
+
+    public void removeProduct(Product product) {
+        products.remove(product);
+    }
+
+    public Product getProduct(int index) {
+        return products.get(index);
     }
 
     //Boilerplate Code

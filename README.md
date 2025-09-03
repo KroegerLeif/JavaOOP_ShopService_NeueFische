@@ -24,7 +24,7 @@ Im Bonus-Bereich sind zusätzliche Features vorgesehen, wie Preis- und Mengenver
 - Produkte können einen Preis und die Menge pro Bestellung enthalten.
 - Die Gesamtsumme einer Bestellung wird berechnet.
 - Der Benutzer kann die Menge von Produkten in Bestellungen angeben und ändern.
-- Es gibt aussagekräftige Tests für die Kernklassen mit assertj-Matchern.
+- Es gibt aussagekräftige Tests für die Kernklassen mit assertj.
 - Ein interaktives Produktverwaltungssystem über die Kommandozeile mit Scanner.
 - Farbliche und formatierte Befehlszeilenausgaben.
 - Integration einer EAN-Datenbank im CSV-Format als Datenquelle.

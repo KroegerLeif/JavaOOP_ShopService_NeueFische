@@ -24,6 +24,10 @@ public class ProductRepo {
         return products.get(index);
     }
 
+    public boolean containsProduct(Product product) {
+        return products.contains(product);
+    }
+
     //Boilerplate Code
     //Getter
     public ArrayList<Product> getProducts() {

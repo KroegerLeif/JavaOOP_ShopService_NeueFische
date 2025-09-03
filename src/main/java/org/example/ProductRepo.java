@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class ProductRepo {
-    private String name;
     private ArrayList<Product> products;
 
     //Konstruktor
     public ProductRepo(String name) {
-        this.name = name;
         products = new ArrayList<>();
     }
 
@@ -35,19 +33,18 @@ public class ProductRepo {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof ProductRepo that)) return false;
-        return Objects.equals(name, that.name) && Objects.equals(products, that.products);
+        return Objects.equals(products, that.products);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, products);
+        return Objects.hashCode(products);
     }
 
     @Override
     public String toString() {
         return "ProductRepo{" +
-                "name='" + name + '\'' +
-                ", products=" + products +
+                "products=" + products +
                 '}';
     }
 

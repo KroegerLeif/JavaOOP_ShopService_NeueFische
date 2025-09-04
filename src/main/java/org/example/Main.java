@@ -12,6 +12,8 @@ public class Main {
         Product product4 = new Product("Bier", new BigDecimal("2.00"));
         Product product5 = new Product("Schokolade", new BigDecimal("0.80"));
         Product product6 = new Product("Tee", new BigDecimal("1.00"));
+        Product product7 = new Product("Schokoladen", new BigDecimal("1.20"));
+        Product product8 = new Product("Aperol", new BigDecimal("1.00"));
 
         ProductRepo repoProduct = new ProductRepo("Shop");
         repoProduct.addProduct(product);
@@ -36,9 +38,18 @@ public class Main {
         shopService.placeNewOrder(productList);
         shopService1.placeNewOrder(productList);
 
+        shopService.placeNewOrder(product6);
+        shopService.placeNewOrder(product6);
+        shopService.placeNewOrder(product7);
+        shopService.placeNewOrder(product8);
+
         System.out.println(shopService);
         System.out.println(shopService1);
 
+        ArrayList<Order> ordersService = shopService.getAllOrders();
+        for(Order order : ordersService){
+            System.out.println(order);
+        }
     }
 
 }

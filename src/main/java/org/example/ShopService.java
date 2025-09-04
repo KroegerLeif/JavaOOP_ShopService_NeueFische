@@ -15,6 +15,12 @@ public class ShopService {
         this.orderRepo = orderRepo;
     }
 
+    public void placeNewOrder(Product product) {
+        ArrayList<Product> productList = new ArrayList<>();
+        productList.add(product);
+        placeNewOrder(productList);
+    }
+
     public void placeNewOrder(ArrayList<Product> product) {
         UUID uuid = UUID.randomUUID();
         HashMap<Product,Integer> orderItems = new HashMap<>();
@@ -29,6 +35,18 @@ public class ShopService {
         BigDecimal sum = calculateTotalValue(orderItems);
         Order order = new Order(uuid.toString(),orderItems, sum);
         orderRepo.addOrder(order);
+    }
+
+    public void removeOrder(String ordernummer){
+        orderRepo.removeOrder(orderRepo.getOrder(ordernummer));
+    }
+
+    public Order getOrder(String ordernummer){
+        return orderRepo.getOrder(ordernummer);
+    }
+
+    public ArrayList<Order> getAllOrders(){
+        return orderRepo.getOrders();
     }
 
     public void changeOrderAmount(String ordernummer, Product product, int newAmount){

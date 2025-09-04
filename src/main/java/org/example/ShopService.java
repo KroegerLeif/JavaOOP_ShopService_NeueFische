@@ -84,7 +84,7 @@ public class ShopService {
         BigDecimal sum = new BigDecimal("0");
         for (Product p : orderItems.keySet()){
             int amount = orderItems.get(p);
-            sum = p.price().multiply(new BigDecimal(amount));
+            sum = sum.add(p.price().multiply(new BigDecimal(amount)));
         }
         return sum;
     }

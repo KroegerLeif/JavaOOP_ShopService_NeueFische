@@ -6,6 +6,10 @@ import java.util.Objects;
 public class OrderListRepo implements OrderRepo {
     private ArrayList<Order> orders;
 
+    public OrderListRepo() {
+        this.orders = new ArrayList<>();
+    }
+
     @Override
     public void addOrder(Order order) {
         orders.add(order);

@@ -9,7 +9,7 @@ public class OrderMapRepo implements OrderRepo {
 
     //constructor
     public OrderMapRepo() {
-        orders = new HashMap<>();
+        this.orders = new HashMap<>();
     }
 
     //interface implementation

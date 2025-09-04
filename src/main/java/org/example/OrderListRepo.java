@@ -3,7 +3,7 @@ package org.example;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class OrderListRepo {
+public class OrderListRepo implements OrderRepo {
     private ArrayList<Order> orders;
 
     public void addOrder(Order order) {

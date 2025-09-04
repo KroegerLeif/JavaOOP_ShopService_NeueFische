@@ -8,7 +8,9 @@ public class OrderMapRepo implements OrderRepo {
     private HashMap<String, Order> orders;
 
     //constructor
-    public OrderMapRepo() {}
+    public OrderMapRepo() {
+        orders = new HashMap<>();
+    }
 
     //interface implementation
     @Override

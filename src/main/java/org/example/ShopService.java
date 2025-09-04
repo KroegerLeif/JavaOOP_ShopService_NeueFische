@@ -1,24 +1,47 @@
 package org.example;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
 
 public class ShopService {
-    private ProductRepo productRepo;
-    private OrderRepo orderRepo;
+    private final ProductRepo productRepo;
+    private final OrderRepo orderRepo;
 
     public ShopService(ProductRepo productRepo, OrderRepo orderRepo) {
         this.productRepo = productRepo;
         this.orderRepo = orderRepo;
     }
 
-    public void placeNewOrder(Product product) {
-        if(checksStock(product)){
-            UUID uuid = UUID.randomUUID();
-            Order order = new Order(uuid.toString(),product.price());
-            orderRepo.addOrder(order);
+    public void placeNewOrder(ArrayList<Product> product) {
+        UUID uuid = UUID.randomUUID();
+        HashMap<Product,Integer> orderItems = new HashMap<>();
+        for(Product p : product){
+            if(checksStock(p)){
+                addProductToOrder(p,orderItems);
+            }else {
+                System.out.println("Produkt " + p + " nicht in Stock");
+                return;
+            }
+        }
+        BigDecimal sum = calculateTotalValue(orderItems);
+        Order order = new Order(uuid.toString(),orderItems, sum);
+        orderRepo.addOrder(order);
+    }
+
+    public void changeOrderAmount(String ordernummer, Product product, int newAmount){
+        Order order = orderRepo.getOrder(ordernummer);
+        if(order.products().containsKey(product)){
+            order.products().put(product,newAmount);
+            ArrayList<Product> productList = convertMapToArrayList(order.products());
+            //Removes order from repo
+            orderRepo.removeOrder(order);
+            //Creates a new order with the new amount
+            placeNewOrder(productList);
         }else {
-            System.out.println("Produkt nicht in Stock");
+            System.out.println("Produkt nicht in Bestellung");
         }
     }
 
@@ -26,6 +49,39 @@ public class ShopService {
         //Could also check for amount in stock
         return productRepo.containsProduct(product);
     }
+
+    private HashMap<Product,Integer> addProductToOrder(Product product,HashMap<Product,Integer> orderItems){
+        if(orderItems.containsKey(product)){
+            int amount = orderItems.get(product);
+            amount++;
+            orderItems.put(product,amount);
+            return orderItems;
+        }else {
+            orderItems.put(product,1);
+            return orderItems;
+        }
+    }
+
+    private BigDecimal calculateTotalValue(HashMap<Product,Integer> orderItems){
+        BigDecimal sum = new BigDecimal("0");
+        for (Product p : orderItems.keySet()){
+            int amount = orderItems.get(p);
+            sum = p.price().multiply(new BigDecimal(amount));
+        }
+        return sum;
+    }
+
+    private ArrayList<Product> convertMapToArrayList(HashMap<Product,Integer> orderItems){
+        ArrayList<Product> productList = new ArrayList<>();
+        for (Product p : orderItems.keySet()){
+            int amount = orderItems.get(p);
+            for (int i = 0; i < amount; i++){
+                productList.add(p);
+            }
+        }
+        return productList;
+    }
+
 
     //Boilerplate Code
     //Getter
